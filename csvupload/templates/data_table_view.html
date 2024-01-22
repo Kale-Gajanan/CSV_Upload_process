@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Data Table Example</title>
+
+    <!-- Include DataTables CSS -->
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.24/css/jquery.dataTables.min.css">
+
+    <!-- Include jQuery -->
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+
+    <!-- Include DataTables JS -->
+    <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.24/js/jquery.dataTables.min.js"></script>
+</head>
+<body>
+
+<div style="margin: 20px;">
+    <table id="example" class="display" style="width:100%">
+        <thead>
+            <!-- Assuming your data[0] contains the keys for your columns -->
+            {% for key in data.0.keys %}
+                <th>{{ key }}</th>
+            {% endfor %}
+        </thead>
+        <tbody>
+            {% for item in data %}
+                <tr>
+                    {% for value in item.values %}
+                        <td>{{ value }}</td>
+                    {% endfor %}
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+
+<script>
+$(document).ready(function() {
+    $('#example').DataTable({
+        "paging": true,
+        "ordering": true,
+        "info": true,
+        "searching": true,
+    });
+});
+</script>
+
+</body>
+</html>

@@ -1,0 +1,5 @@
+<!-- csvapp/templates/file_detail.html -->
+<h1>File Detail</h1>
+<p><strong>Filename:</strong> {{ file.filename.name }}</p>
+<p><strong>Timestamp:</strong> {{ file.timestamp }}</p>
+<a href="{% url 'file_list' %}">Back to file list</a>

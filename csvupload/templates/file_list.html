@@ -1,0 +1,73 @@
+<!-- csvapp/templates/file_list.html -->
+<h1>Uploaded Files List</h1>
+<form method="post" id="file-selection-form">
+    {% csrf_token %}
+    <button type="submit" name="process_selected" id="process-selected-btn">Process Selected</button>
+    <table border="1">
+        <thead>
+            <tr>
+                <th>Select</th>
+                <th>ID</th>
+                <th>Filename</th>
+                <th>Timestamp</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for file in files %}
+            <tr>
+                <td>
+                    <input type="checkbox" name="selected_files" value="{{ file.id }}">
+                </td>
+                <td>{{ file.id }}</td>
+                <td><a href="{% url 'file_detail' pk=file.id %}">{{ file.filename.name }}</a></td>
+                <td>{{ file.timestamp }}</td>
+                <td>
+                    <a href="{% url 'file_edit' pk=file.id %}">Edit</a>
+                    <a href="{% url 'file_delete' pk=file.id %}">Delete</a>
+                    <button type="button" id="process-selected-btn" class="ajax-btn">Process Selected</button>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</form>
+<script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+<script>
+    $(document).ready(function () {
+        $(".ajax-btn").on("click", function (event) {
+            // Prevent the default form submission
+            event.preventDefault();
+
+            // Save a reference to the button for later use
+            var $button = $(this);
+
+            // Serialize the form data
+            var formData = $("#file-selection-form").serialize();
+
+            // Send an Ajax request
+            $.ajax({
+                type: "POST",
+                url: "{% url 'process_selected_files' %}",
+                data: formData,
+                success: function (data) {
+                    // Handle success response
+                    console.log(data);
+
+                    // Show an alert when the process is completed
+                    alert("Process completed!");
+
+                    // Update the button text or status
+                    $button.text('Done').removeAttr('disabled');
+                },
+                error: function (error) {
+                    // Handle error response
+                    console.error(error);
+                }
+            });
+
+            // Update the button text to indicate processing
+            $button.text('Processing...').attr('disabled', 'disabled');
+        });
+    });
+</script>

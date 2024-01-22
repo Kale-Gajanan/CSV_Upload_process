@@ -1,0 +1,8 @@
+<!-- csvapp/templates/file_upload.html -->
+<h1>Upload a New File</h1>
+<form method="post" enctype="multipart/form-data">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit">Upload</button>
+</form>
+<a href="{% url 'file_list' %}">Back to file list</a>

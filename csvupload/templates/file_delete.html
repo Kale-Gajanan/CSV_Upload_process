@@ -1,0 +1,8 @@
+<!-- csvapp/templates/file_delete.html -->
+<h1>Delete File</h1>
+<p>Are you sure you want to delete "{{ file.filename.name }}"?</p>
+<form method="post">
+    {% csrf_token %}
+    <button type="submit">Confirm</button>
+</form>
+<a href="{% url 'file_list' %}">Cancel</a>

@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DataTables Example</title>
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.11.5/css/jquery.dataTables.css">
+    <script type="text/javascript" charset="utf8" src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.js"></script>
+</head>
+<body>
+
+<div>
+    <table id="datatab" class="display" style="width:100%">
+        <thead>
+            <tr>
+                <th>Year</th>
+                <th>Datatype</th>
+                <!-- Add more headers for additional fields -->
+            </tr>
+        </thead>
+    </table>
+</div>
+
+<script>
+    $(document).ready(function () {
+        $('#datatab').DataTable({
+            processing: true,
+            serverSide: true,
+            ajax: {
+                url: '/get_data_json/',  // Adjust the URL based on your Django view URL
+                type: 'GET',
+                dataSrc: 'data',  // The key in the JSON response containing the data
+            },
+            columns: [
+                { data: 'Year' },
+                { data: 'Datatype' },
+                // Add more columns as needed
+            ],
+            language: {
+            info: 'Showing _START_ to _END_ of _TOTAL_ entries',  // Customize the info message
+            },
+        });
+    });
+</script>
+
+</body>
+</html>

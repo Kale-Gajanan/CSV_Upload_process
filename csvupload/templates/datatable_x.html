@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DataTables Example</title>
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.11.5/css/jquery.dataTables.css">
+    <script type="text/javascript" charset="utf8" src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.js"></script>
+</head>
+<body>
+
+<div>
+    <table id="data-table" class="display" style="width:100%">
+        <thead>
+            <tr>
+                <th>Field 1</th>
+                <th>Field 2</th>
+                <!-- Add more headers for additional fields -->
+            </tr>
+        </thead>
+    </table>
+</div>
+
+<script>
+    $(document).ready(function () {
+    $('#data-table').DataTable({
+        processing: true,
+        serverSide: true,
+        ajax: {
+            url: '/get_data_json1/',
+            type: 'GET',
+            dataSrc: 'data',
+        },
+        columns: [
+            { data: 'field1' },
+            { data: 'field2' },
+            // Add more columns as needed
+        ],
+        language: {
+            info: 'Showing _START_ to _END_ of _TOTAL_ entries',  // Customize the info message
+        },
+    });
+});
+
+</script>
+
+</body>
+</html>
